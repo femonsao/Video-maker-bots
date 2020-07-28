@@ -1,24 +1,29 @@
-const reeadLine = require('readline-sync')
+const readline = require('readline-sync')
+const robots = {
+  text: require('./robots/text.js')
+}
 
-function start(){
+async function start() {
   const content = {}
 
-  content.searchTerm = askAndReturnSerachTerm()
-  content.prefix = aksAndReturnPrefix()
+  content.searchTerm = askAndReturnSearchTerm()
+  content.prefix = askAndReturnPrefix()
 
-  function askAndReturnSerachTerm(){
-    return reeadLine.question('Type a Wikipedia search term: ')
+  await robots.text(content)
+
+  function askAndReturnSearchTerm() {
+    return readline.question('Type a Wikipedia search term: ')
   }
-  function aksAndReturnPrefix(){
-    const prefixes = ["Who is", "What is", "The history of"]     
-    const selectPrefixIndex  = reeadLine.keyInSelect(prefixes, 'Choes an option: ')
-    const selectedPrefixText = prefixes[selectPrefixIndex]
+
+  function askAndReturnPrefix() {
+    const prefixes = ['Who is', 'What is', 'The history of']
+    const selectedPrefixIndex = readline.keyInSelect(prefixes, 'Choose one option: ')
+    const selectedPrefixText = prefixes[selectedPrefixIndex]
 
     return selectedPrefixText
   }
 
-  console.log(content)
+  // console.log(content)
 }
-
 
 start()
